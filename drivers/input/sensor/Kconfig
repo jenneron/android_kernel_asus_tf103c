@@ -1,0 +1,52 @@
+#
+# Sensor driver configuration
+#
+menuconfig INPUT_SENSOR
+	bool "Sensor"
+
+if INPUT_SENSOR
+
+config INPUT_SENSOR_AK09911
+	tristate "AK09911 compass support"
+	default n
+	depends on I2C
+	help
+	  If you say yes here you get support for Asahi Kasei's
+	  orientation sensor AK09911.
+
+config INPUT_SENSOR_KXTJ2
+	tristate "Kionix KXTJ2 tri-axis digital accelerometer"
+        default n
+	depends on I2C
+	help
+	  Say Y here to enable support for the Kionix KXTJ2 digital tri-axis
+	  accelerometer.
+
+	  To compile this driver as a module, choose M here: the module will
+	  be called kxtj2.
+
+config INPUT_SENSOR_KXTJ2_POLLED_MODE
+	bool "Enable polling mode support"
+        default n
+	depends on INPUT_SENSOR_KXTJ2
+	select INPUT_POLLDEV
+	help
+	  Say Y here if you need accelerometer to work in polling mode.
+
+
+config INPUT_SENSOR_HALLSENSOR
+        bool "Hall sensor support"
+        default n
+	help
+	This is the hall sensor driver for 103.
+
+config INPUT_SENSOR_BMA2X2
+        bool "gsensor bma2x2 support"
+        default n
+	help
+	This is the gsensor driver for android system.
+
+
+endif
+
+source "drivers/input/sensor/bosch/Kconfig"
